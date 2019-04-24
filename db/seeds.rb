@@ -13,3 +13,7 @@ data = JSON.parse(RestClient.get(API))
 drives = data["byways"]["GA"]
 
 drives.each { |d| Drive.create(name: d["name"], state: "GA", description: d["description"], bound_a_lng: d["bounds"][0].to_f, bound_a_lat: d["bounds"][1].to_f, bound_b_lng: d["bounds"][2].to_f, bound_b_lat: d["bounds"][3].to_f) }
+
+3.times do
+  User.first.favorites.create(drive: Drive.all.sample)
+end
