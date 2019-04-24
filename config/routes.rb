@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  post '/login', to: 'auth#login', as: :login
+
   resources :favorites
   resources :drives
   resources :users
