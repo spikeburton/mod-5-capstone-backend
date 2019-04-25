@@ -33,6 +33,7 @@ ActiveRecord::Schema.define(version: 2019_04_24_191946) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["drive_id"], name: "index_favorites_on_drive_id"
+    t.index ["user_id", "drive_id"], name: "index_favorites_on_user_id_and_drive_id", unique: true
     t.index ["user_id"], name: "index_favorites_on_user_id"
   end
 
@@ -46,6 +47,6 @@ ActiveRecord::Schema.define(version: 2019_04_24_191946) do
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "favorites", "drives", column: "drive_id"
+  add_foreign_key "favorites", "drives"
   add_foreign_key "favorites", "users"
 end
