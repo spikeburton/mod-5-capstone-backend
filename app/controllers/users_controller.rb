@@ -6,7 +6,7 @@ class UsersController < ApplicationController
     if @user && @user.valid?
       @user.save
       token = encode_token(user_id: @user.id)
-      render json: @user.to_json, status: :created
+      render json: { user: @user.to_json, jwt: token } , status: :created
     else
       render json: { errors: @user.errors.full_messages }, status: :not_acceptable
     end
