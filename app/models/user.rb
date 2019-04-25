@@ -6,6 +6,8 @@ class User < ApplicationRecord
 
   validates :username, presence: true, uniqueness: { case_sensitive: false }
   validates :email, presence: true, format: { with: /.+\@.+\..+/ }
+  validates :first_name, presence: true
+  validates :last_name, presence: true
 
   def to_json
     {
@@ -16,5 +18,9 @@ class User < ApplicationRecord
       last_name: self.last_name,
       favorites: self.favorites.all_json
     }
+  end
+
+  def self.all_json
+    User.all.collect(&:to_json)
   end
 end
