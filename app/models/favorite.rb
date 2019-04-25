@@ -2,6 +2,8 @@ class Favorite < ApplicationRecord
   belongs_to :user
   belongs_to :drive
 
+  validates_uniqueness_of :drive_id, scope: :user_id
+
   def to_custom_json
     {
       user_id: self.user_id,
