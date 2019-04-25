@@ -1,7 +1,11 @@
 class User < ApplicationRecord
   has_secure_password
-  has_many :favorites
+
+  has_many :favorites, dependent: :destroy
   has_many :drives, through: :favorites
+
+  validates :username, presence: true, uniqueness: { case_sensitive: false }
+  validates :email, presence: true, format: { with: /.+\@.+\..+/ }
 
   def to_json
     {
