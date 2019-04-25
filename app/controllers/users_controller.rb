@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  # skip_before_action :authorize!
+  skip_before_action :authorize!, except: [:profile]
 
   def create
     @user = User.new(user_params)
