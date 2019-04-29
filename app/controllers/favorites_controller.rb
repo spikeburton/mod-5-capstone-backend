@@ -18,13 +18,13 @@ class FavoritesController < ApplicationController
   end
 
   def destroy
-    binding.pry
-    # @favorite = Favorite.find(params[:id])
-    # if @favorite && @favorite.destroy
-    #   render json: {}, status: :no_content
-    # else
-    #   render json: { errors: @favorite.errors.full_messages }, status: :unprocessible_entity
-    # end
+    @favorite = Favorite.find(params[:id])
+    if @favorite
+      @favorite.destroy
+      render json: {}, status: :no_content
+    else
+      render json: { errors: @favorite.errors.full_messages }, status: :unprocessible_entity
+    end
   end
 
   private
