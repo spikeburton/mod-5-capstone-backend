@@ -1,5 +1,5 @@
 class FavoritesController < ApplicationController
-  skip_before_action :authorize!
+  skip_before_action :authorize!, only: [:index]
 
   def index
     @favorites = Favorite.all
@@ -7,7 +7,7 @@ class FavoritesController < ApplicationController
   end
 
   def create
-    @favorite = Favorite.new(favorite_params)
+    @favorite = current_user.favorites.build(favorite_params)
     if @favorite && @favorite.valid?
       @favorite.save
       render json: @favorite, status: :created
@@ -28,6 +28,6 @@ class FavoritesController < ApplicationController
   private
 
   def favorite_params
-    params.permit(:drive_id, :user_id)
+    params.require(:favorite).permit(:drive_id, :user_id)
   end
 end
