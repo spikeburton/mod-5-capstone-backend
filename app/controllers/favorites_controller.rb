@@ -19,7 +19,8 @@ class FavoritesController < ApplicationController
 
   def destroy
     @favorite = Favorite.find(params[:id])
-    if @favorite && @favorite.destroy
+    if @favorite
+      @favorite.destroy
       render json: {}, status: :no_content
     else
       render json: { errors: @favorite.errors.full_messages }, status: :unprocessible_entity
