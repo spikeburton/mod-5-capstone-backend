@@ -6,6 +6,7 @@ class Favorite < ApplicationRecord
 
   def to_custom_json
     {
+      id: self.id,
       user_id: self.user_id,
       drive_id: self.drive_id
     }
