@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  skip_before_action :authorize!, except: [:profile, :update]
+  skip_before_action :authorize!, except: [:profile, :settings, :purge]
 
   def index
     @users = User.all
@@ -22,10 +22,20 @@ class UsersController < ApplicationController
   end
 
   def settings
-    if current_user.update(user_params)
+    @user = current_user
+    if @user.update(user_params)
       render json: { user: current_user.to_json }, status: :accepted
     else
-      render json: { errors: current_user.errors.full_messages }, status: :not_acceptable
+      render json: { errors: @user.errors.full_messages }, status: :not_acceptable
+    end
+  end
+
+  def purge
+    @user = current_user
+    if @user.destroy
+      render json: {}, status: :no_content
+    else
+      render json: { errors: @user.errors.full_messages }, status: :unprocessible_entity
     end
   end
 

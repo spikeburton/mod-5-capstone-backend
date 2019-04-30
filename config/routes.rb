@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   post '/login', to: 'auth#login', as: :login
   get '/profile', to: 'users#profile', as: :profile
   patch '/settings', to: 'users#settings', as: :settings
+  delete '/purge', to: 'users#purge', as: :purge
 
   resources :favorites
   resources :drives
