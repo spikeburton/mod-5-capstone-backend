@@ -10,7 +10,7 @@ class FavoritesController < ApplicationController
     @favorite = current_user.favorites.build(favorite_params)
     if @favorite && @favorite.valid?
       @favorite.save
-      render json: @favorite, status: :created
+      render json: @favorite.to_custom_json, status: :created
     else
       # render json: { errors: @favorite.errors.full_messages }, status: :not_accepted
       render json: { errors: ["User has already added as a favorite."] }, status: :not_accepted

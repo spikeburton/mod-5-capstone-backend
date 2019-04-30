@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  skip_before_action :authorize!, except: [:profile]
+  skip_before_action :authorize!, except: [:profile, :update]
 
   def index
     @users = User.all
@@ -19,6 +19,14 @@ class UsersController < ApplicationController
 
   def profile
     render json: { user: current_user.to_json }
+  end
+
+  def settings
+    if current_user.update(user_params)
+      render json: { user: current_user.to_json }, status: :accepted
+    else
+      render json: { errors: current_user.errors.full_messages }, status: :not_acceptable
+    end
   end
 
   private
