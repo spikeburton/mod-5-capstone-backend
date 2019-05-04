@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
-  skip_before_action :authorize!, except: [:profile, :settings, :purge]
+  skip_before_action :authorize!, only: [:index, :create, :sign_s3]
+  before_action :set_s3_direct_post, only: [:create, :settings, :sign_s3]
 
   def index
     @users = User.all
@@ -7,6 +8,7 @@ class UsersController < ApplicationController
   end
 
   def create
+    binding.pry
     @user = User.new(user_params)
     if @user && @user.valid?
       @user.save
@@ -39,9 +41,22 @@ class UsersController < ApplicationController
     end
   end
 
+  def sign_s3
+    data = {
+      url: @s3_direct_post.url,
+      form_data: @s3_direct_post.fields,
+    }
+
+    render json: data, status: :ok
+  end
+
   private
 
   def user_params
     params.permit(:username, :password, :password_confirmation, :email, :first_name, :last_name)
+  end
+
+  def set_s3_direct_post
+    @s3_direct_post = S3_BUCKET.presigned_post(key: "uploads/#{SecureRandom.uuid}/${filename}", success_action_status: '201', acl: 'public-read')
   end
 end

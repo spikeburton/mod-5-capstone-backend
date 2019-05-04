@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   post '/login', to: 'auth#login', as: :login
   get '/profile', to: 'users#profile', as: :profile
+  get '/sign_s3', to: 'users#sign_s3'
   patch '/settings', to: 'users#settings', as: :settings
   delete '/purge', to: 'users#purge', as: :purge
 
