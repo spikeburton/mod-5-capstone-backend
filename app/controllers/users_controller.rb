@@ -41,14 +41,14 @@ class UsersController < ApplicationController
     end
   end
 
-  def sign_s3
-    data = {
-      url: @s3_direct_post.url,
-      form_data: @s3_direct_post.fields,
-    }
+  # def sign_s3
+  #   data = {
+  #     url: @s3_direct_post.url,
+  #     form_data: @s3_direct_post.fields,
+  #   }
 
-    render json: data, status: :ok
-  end
+  #   render json: data, status: :ok
+  # end
 
   private
 
@@ -56,7 +56,7 @@ class UsersController < ApplicationController
     params.permit(:username, :password, :password_confirmation, :email, :first_name, :last_name)
   end
 
-  def set_s3_direct_post
-    @s3_direct_post = S3_BUCKET.presigned_post(key: "uploads/#{SecureRandom.uuid}/${filename}", success_action_status: '201', acl: 'public-read')
-  end
+  # def set_s3_direct_post
+  #   @s3_direct_post = S3_BUCKET.presigned_post(key: "uploads/#{SecureRandom.uuid}/${filename}", success_action_status: '201', acl: 'public-read')
+  # end
 end
