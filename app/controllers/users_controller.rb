@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  skip_before_action :authorize!, except: [:profile, :settings, :purge]
+  skip_before_action :authorize!, only: [:index, :create]
 
   def index
     @users = User.all
@@ -42,6 +42,6 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.permit(:username, :password, :password_confirmation, :email, :first_name, :last_name)
+    params.permit(:username, :password, :password_confirmation, :email, :first_name, :last_name, :avatar_url)
   end
 end
