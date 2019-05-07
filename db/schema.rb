@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_05_010050) do
+ActiveRecord::Schema.define(version: 2019_05_07_145514) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,6 +37,16 @@ ActiveRecord::Schema.define(version: 2019_05_05_010050) do
     t.index ["user_id"], name: "index_favorites_on_user_id"
   end
 
+  create_table "photos", force: :cascade do |t|
+    t.string "image_url"
+    t.bigint "user_id"
+    t.bigint "drive_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["drive_id"], name: "index_photos_on_drive_id"
+    t.index ["user_id"], name: "index_photos_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "username"
     t.string "password_digest"
@@ -50,4 +60,6 @@ ActiveRecord::Schema.define(version: 2019_05_05_010050) do
 
   add_foreign_key "favorites", "drives"
   add_foreign_key "favorites", "users"
+  add_foreign_key "photos", "drives"
+  add_foreign_key "photos", "users"
 end

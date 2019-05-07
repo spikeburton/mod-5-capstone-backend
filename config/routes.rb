@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   patch '/settings', to: 'users#settings', as: :settings
   delete '/purge', to: 'users#purge', as: :purge
 
+  resources :photos
   resources :favorites
   resources :drives
   resources :users
