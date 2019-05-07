@@ -10,4 +10,10 @@ class Drive < ApplicationRecord
   validates :bound_a_lat, presence: true
   validates :bound_b_lng, presence: true
   validates :bound_b_lat, presence: true
+
+  def as_json(*)
+    super.tap do |hash|
+      hash["photos"] = self.photos
+    end
+  end
 end
