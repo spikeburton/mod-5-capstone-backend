@@ -3,6 +3,7 @@ class User < ApplicationRecord
 
   has_many :favorites, dependent: :destroy
   has_many :drives, through: :favorites
+  has_many :photos, dependent: :destroy
 
   validates :username, presence: true, uniqueness: { case_sensitive: false }
   validates :email, presence: true, format: { with: /.+\@.+\..+/ }

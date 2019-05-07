@@ -1,6 +1,7 @@
 class Drive < ApplicationRecord
   has_many :favorites, dependent: :destroy
   has_many :users, through: :favorites
+  has_many :photos, dependent: :destroy
 
   validates :name, presence: true
   validates :description, presence: true
