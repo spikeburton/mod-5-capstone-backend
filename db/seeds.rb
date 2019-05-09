@@ -8,6 +8,8 @@
 API = "https://raw.githubusercontent.com/spikeburton/scenic-byway-api/master/db.json"
 
 User.create(username: "darryl", password: "p@ssw0rd", email: "darryl.figtree@gmail.com", first_name: "Darryl", last_name: "Fiddle-Leaf")
+User.create(username: "spikeburton", password: "p@ssw0rd", email: "spikeburton@gmail.com", first_name: "Spike", last_name: "Burton")
+User.create(username: "gabbyguider", password: "p@ssword", email: "gabbyguider@gmail.com", first_name: "Gabby", last_name: "Guider")
 
 data = JSON.parse(RestClient.get(API))
 drives = data["byways"]["GA"]
@@ -17,3 +19,9 @@ drives.each { |d| Drive.create(name: d["name"], state: "GA", description: d["des
 3.times do
   User.first.favorites.create(drive: Drive.all.sample)
 end
+
+User.all.sample.photos.create(drive: Drive.first, image_url: "https://s3.us-east-2.amazonaws.com/scenic-drive-photos/uploads/IMG_2140.jpeg")
+User.all.sample.photos.create(drive: Drive.first, image_url: "https://s3.us-east-2.amazonaws.com/scenic-drive-photos/uploads/IMG_2141.jpeg")
+User.all.sample.photos.create(drive: Drive.first, image_url: "https://s3.us-east-2.amazonaws.com/scenic-drive-photos/uploads/IMG_2143.jpeg")
+User.all.sample.photos.create(drive: Drive.first, image_url: "https://s3.us-east-2.amazonaws.com/scenic-drive-photos/uploads/IMG_2153.jpeg")
+User.all.sample.photos.create(drive: Drive.first, image_url: "https://s3.us-east-2.amazonaws.com/scenic-drive-photos/uploads/IMG_2174.jpeg")
