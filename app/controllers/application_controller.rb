@@ -2,7 +2,6 @@ class ApplicationController < ActionController::API
   before_action :authorize!
 
   def encode_token(payload)
-    # binding.pry
     JWT.encode(payload, ENV['SECRET'], 'HS256')
   end
 

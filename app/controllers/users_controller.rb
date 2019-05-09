@@ -1,10 +1,10 @@
 class UsersController < ApplicationController
-  skip_before_action :authorize!, only: [:index, :create]
+  skip_before_action :authorize!, only: [:create]
 
-  def index
-    @users = User.all
-    render json: @users.all_json
-  end
+  # def index
+  #   @users = User.all
+  #   render json: @users
+  # end
 
   def create
     @user = User.new(user_params)
@@ -18,13 +18,13 @@ class UsersController < ApplicationController
   end
 
   def profile
-    render json: { user: current_user.to_json }
+    render json: { user: current_user }
   end
 
   def settings
     @user = current_user
     if @user.update(user_params)
-      render json: { user: current_user.to_json }, status: :accepted
+      render json: { user: current_user }, status: :accepted
     else
       render json: { errors: @user.errors.full_messages }, status: :not_acceptable
     end

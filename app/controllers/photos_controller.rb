@@ -5,7 +5,7 @@ class PhotosController < ApplicationController
       @photo.save
       render json: @photo, status: :created
     else
-      render json: { errors: @photo.errors.full_messages }, status: :unacceptable
+      render json: { errors: @photo.errors.full_messages }, status: :not_acceptable
     end
   end
 

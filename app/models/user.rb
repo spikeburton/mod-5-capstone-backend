@@ -10,19 +10,9 @@ class User < ApplicationRecord
   validates :first_name, presence: true
   validates :last_name, presence: true
 
-  def to_json
-    {
-      id: self.id,
-      username: self.username,
-      email: self.email,
-      first_name: self.first_name,
-      last_name: self.last_name,
-      avatar_url: self.avatar_url,
-      favorites: self.favorites.all_json
-    }
-  end
-
-  def self.all_json
-    User.all.collect(&:to_json)
+  def as_json(*)
+    super.except("password_digest", "created_at", "updated_at").tap do |hash|
+      hash["favorites"] = self.favorites
+    end
   end
 end
